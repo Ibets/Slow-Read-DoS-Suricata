@@ -5,7 +5,7 @@ from collections import defaultdict
 # Store all flow entries grouped by flow_id
 flow_data = defaultdict(dict)
 
-with open("attack.json") as infile:
+with open("attacktraffic.json") as infile:
     for line in infile:
         try:
             entry = json.loads(line)
@@ -95,7 +95,7 @@ with open("attack.json") as infile:
 # Save to CSV
 fieldnames = sorted(set().union(*(d.keys() for d in flow_data.values())))
 
-with open("suricata_output_attack.csv", "w", newline="") as csvfile:
+with open("suricataattack.csv", "w", newline="") as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
     for row in flow_data.values():
