@@ -1,0 +1,19 @@
+slowread.rules
+alert tcp $HOME_NET any -> $HOME_NET any (\
+msg:"Posible Slowloris Attack";\
+flow:no_stream; dsize:<100;\
+threshold:type both,track by_dst,count 30,seconds 60;\
+classtype:web-application-attack;\
+sid:900000501;\
+rev:15;\
+)
+
+http.rules
+alert http any any -> $HOME_NET 80 (\
+    msg:"[HTTP] HTTP GET Request Detected";\
+    flow:to_server, established;\
+    content:"GET"; http_method;\
+    classtype:web-application-activity;\
+    sid:1000002;\
+    rev:3;\
+)
