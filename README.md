@@ -1,20 +1,124 @@
 Deteksi Serangan Slow Read
+Repositori ini berisi implementasi sistem deteksi serangan Slow Read DoS menggunakan Suricata IDS dan model Random Forest. Sistem membaca log Suricata secara real-time dan memprediksi apakah koneksi bersifat Normal atau Serangan Slow Read.
 
-Repositori ini berisi:
+Struktur Repositori
+rf_model.pkl — Model Random Forest hasil pelatihan
 
-rf_model.pkl : Model Random Forest
-live_predict.py : Skrip pemantauan log Suricata
-datatrain/ : Data pelatihan
-datatest/ : Data uji prediksi menggunakan skrip dan model
+live_predict.py — Skrip pemantauan log Suricata & prediksi
+
+datatrain/ — Dataset pelatihan
+
+datatest/ — Dataset pengujian
+
+rule/ — Rules Suricata untuk deteksi Slow Read
+
+normal.jmx — Konfigurasi Apache JMeter untuk trafik normal
+
+slowreadattack.sh — Skrip simulasi serangan Slow Read
 
 Cara Menjalankan
+Jalankan Suricata dan pastikan log tersimpan di:
 
-Jalankan Suricata dan lakukan konfigurasi . gunakan rules pada rule di reposiitory dan konfigurasikan pada config suricata
-Jalankan Script pada direktori /var/log/suricata/ dengan perintah ' sudo python3 live_predict.py'
+swift
+Copy
+Edit
+/var/log/suricata/eve.json
+Gunakan rules dari folder rule/ dan aktifkan di konfigurasi Suricata.
 
-Jalankan Serangan dengan menggunakan perintah 'slowreadattack.sh/'
-Jalankan Trafik Normal dengan menggunakan Jmeter denggan konfigurasi 'normal.jmx'
+Jalankan skrip deteksi di direktori log Suricata:
 
-Skrip akan membaca log dari /var/log/suricata/eve.json dan memprediksi apakah koneksi merupakan serangan Slow Read atau normal menggunakan model rf_model.pkl.
+bash
+Copy
+Edit
+cd /var/log/suricata/
+sudo python3 /path/to/live_predict.py
+Uji trafik normal:
 
-Hasil prediksi akan ditampilkan di terminal.
+bash
+Copy
+Edit
+jmeter -n -t normal.jmx
+Uji serangan Slow Read:
+
+bash
+Copy
+Edit
+./slowreadattack.sh
+Lihat hasil prediksi di terminal:
+
+css
+Copy
+Edit
+NORMAL
+SLOW READ ATTACK
+Kalau mau, aku bisa buatkan versi skripsi yang ada diagram alur prosesnya supaya langsung masuk di lampiran skripsi.
+Mau aku buatkan juga?
+
+
+
+
+
+
+
+
+You said:
+buat yangg bisa di copy paste langsung
+
+
+ChatGPT said:
+Oke, ini versi README sederhana yang bisa langsung kamu copy-paste ke file README.md skripsimu.
+
+Deteksi Serangan Slow Read
+Repositori ini berisi implementasi sistem deteksi serangan Slow Read DoS menggunakan Suricata IDS dan model Random Forest.
+Sistem membaca log Suricata secara real-time dan memprediksi apakah koneksi bersifat Normal atau Serangan Slow Read.
+
+Struktur Repositori
+rf_model.pkl — Model Random Forest hasil pelatihan
+
+live_predict.py — Skrip pemantauan log Suricata & prediksi
+
+datatrain/ — Dataset pelatihan
+
+datatest/ — Dataset pengujian
+
+rule/ — Rules Suricata untuk deteksi Slow Read
+
+normal.jmx — Konfigurasi Apache JMeter untuk trafik normal
+
+slowreadattack.sh — Skrip simulasi serangan Slow Read
+
+Cara Menjalankan
+Jalankan Suricata dan pastikan log tersimpan di:
+
+swift
+Copy
+Edit
+/var/log/suricata/eve.json
+Gunakan rules dari folder rule/ dan aktifkan di konfigurasi Suricata.
+
+Jalankan skrip deteksi di direktori log Suricata:
+
+bash
+Copy
+Edit
+cd /var/log/suricata/
+sudo python3 /path/to/live_predict.py
+Uji trafik normal:
+
+bash
+Copy
+Edit
+jmeter -n -t normal.jmx
+Uji serangan Slow Read:
+
+bash
+Copy
+Edit
+./slowreadattack.sh
+Lihat hasil prediksi di terminal:
+
+css
+Copy
+Edit
+NORMAL
+SLOW READ ATTACK
