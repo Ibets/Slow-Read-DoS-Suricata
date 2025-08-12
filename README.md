@@ -43,8 +43,9 @@ Sistem membaca log Suricata secara *real-time* dan memprediksi apakah koneksi be
 
 5. **Lihat hasil prediksi di terminal**:
    ```
-   NORMAL
-   SLOW READ ATTACK
+   [2025-06-29T09:06:53.201127+0700] 192.168.100.6 ➔ 192.168.100.4 | Flow ID: 1619699257938753 | Prediction: SLOWREAD
+   [+] Classification saved for Flow ID 1619699257938753. Now removing from tracking.
+
    ```
 
 ---
