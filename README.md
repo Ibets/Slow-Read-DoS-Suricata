@@ -20,3 +20,31 @@ Sistem membaca log Suricata secara *real-time* dan memprediksi apakah koneksi be
 ## Cara Menjalankan
 
 1. **Jalankan Suricata** dan pastikan log tersimpan di:
+   ```
+   /var/log/suricata/eve.json
+   ```
+   Gunakan rules dari folder `rule/` dan aktifkan di konfigurasi Suricata.
+
+2. **Jalankan skrip deteksi** di direktori log Suricata:
+   ```bash
+   cd /var/log/suricata/
+   sudo python3 /path/to/live_predict.py
+   ```
+
+3. **Uji trafik normal**:
+   ```bash
+   jmeter -n -t normal.jmx
+   ```
+
+4. **Uji serangan Slow Read**:
+   ```bash
+   ./slowreadattack.sh
+   ```
+
+5. **Lihat hasil prediksi di terminal**:
+   ```
+   NORMAL
+   SLOW READ ATTACK
+   ```
+
+---
